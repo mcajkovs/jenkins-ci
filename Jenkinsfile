@@ -28,12 +28,15 @@ node {
           echo resultJson.containers[i].name
           echo resultJson.containers[i].dockerfile
           
-          
-          /*
           def tag = resultJson.containers[i].tag
           def name = resultJson.containers[i].name
           def dockerfile = resultJson.containers[i].dockerfile
           
+          echo tag
+          echo name
+          ecoh dockerfile
+          
+          /*
           bat """
           @echo off
           REM for /f %%i in ('git config --get remote.origin.url') do set GIT_REPO=%%i
