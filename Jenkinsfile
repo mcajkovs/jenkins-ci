@@ -1,4 +1,5 @@
 import groovy.json.JsonOutput
+import groovy.json.JsonSlurperClassic 
 
 // GLOBAL VARIABLE
 def containers = '''
