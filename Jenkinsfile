@@ -34,7 +34,12 @@ node {
           
           echo tag
           echo name
-          ecoh dockerfile
+          echo dockerfile
+          
+          bat """
+          @echo off
+          echo ${tag}
+          """
           
           /*
           bat """
