@@ -146,9 +146,9 @@ node {
         //set GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
         //set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
     
-        set GIT_REPO = "GIT_REPO"
-        set GIT_BRANCH = "GIT_BRANCH"
-        set GIT_COMMIT = "GIT_COMMIT"
+        def GIT_REPO = "GIT_REPO"
+        def GIT_BRANCH = "GIT_BRANCH"
+        def GIT_COMMIT = "GIT_COMMIT"
     
         println "${GIT_REPO}"
         println "${GIT_BRANCH}"
