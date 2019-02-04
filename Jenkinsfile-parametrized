@@ -100,59 +100,62 @@ def jsonParseSlurperClassic(def json) {
 node {
     stage('Build') {
         def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
-        //println "======================"
-        //def jsonSlurperClassic = new JsonSlurperClassic()
-        //def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
-        // for (i = 0; i < resultJson.containers.size(); i++){
-          // println "resultJson.containers[i].name: " + resultJson.containers[i].name
-          // println "resultJson.containers[i].tag: " + resultJson.containers[i].tag
-          // println "resultJson.containers[i].dockerfile: " + resultJson.containers[i].dockerfile
-          // println "----------------------"
+        println "======================"
+        def jsonSlurperClassic = new JsonSlurperClassic()
+        def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
+        for (i = 0; i < resultJson.containers.size(); i++){
+          println "resultJson.containers[i].name: " + resultJson.containers[i].name
+          println "resultJson.containers[i].tag: " + resultJson.containers[i].tag
+          println "resultJson.containers[i].dockerfile: " + resultJson.containers[i].dockerfile
+          println "----------------------"
           
-          // // def name = resultJson.containers[i].name.toString()
-          // // def tag = resultJson.containers[i].tag.toString()
-          // // def dockerfile = resultJson.containers[i].dockerfile.toString()
+          // def name = resultJson.containers[i].name.toString()
+          // def tag = resultJson.containers[i].tag.toString()
+          // def dockerfile = resultJson.containers[i].dockerfile.toString()
           
-          // def name = resultJson.containers[i].name
-          // def tag = resultJson.containers[i].tag
-          // def dockerfile = resultJson.containers[i].dockerfile
+          def name = resultJson.containers[i].name
+          def tag = resultJson.containers[i].tag
+          def dockerfile = resultJson.containers[i].dockerfile
           
-
-          // println "name: " + name
-          // println "tag: " + tag
-          // println "dockerfile: " + dockerfile
-          // println "----------------------"
+          println "name: " + name
+          println "tag: " + tag
+          println "dockerfile: " + dockerfile
+          println "----------------------"
+          
+          def retval = jobExecute("cmd /c echo ${name}")
+          println "retval: ${retval}"
+          def retval = jobExecute("cmd /c echo ${tag}")
+          println "retval: ${retval}"
+          def retval = jobExecute("cmd /c echo ${dockerfile}")
+          println "retval: ${retval}"          
+          println "----------------------"
           
           // println "name.getClass(): " + name.getClass()
           // println "tag.getClass(): " + tag.getClass()
           // println "dockerfile.getClass(): " + dockerfile.getClass()          
           
-          // println "======================"
+          println "======================"
           
-          // // // bat """
-          // // // @echo off
-          // // // echo "bat echo tag ${name}"
-          // // // echo "bat echo tag ${tag}"
-          // // // echo "bat echo tag ${dockerfile}"
-          // // // """
-        // }
+          // // bat """
+          // // @echo off
+          // // echo "bat echo tag ${name}"
+          // // echo "bat echo tag ${tag}"
+          // // echo "bat echo tag ${dockerfile}"
+          // // """
+        }
         
         // def str1 = "str1"
         // bat """
         // echo "bat echo str1 ${str1}"
         // """
         
-        def GIT_REPO = jobExecute("git config --get remote.origin.url")
-        def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
-        def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
+        // def GIT_REPO = jobExecute("git config --get remote.origin.url")
+        // def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
+        // def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
     
-        //def GIT_REPO = "GIT_REPO"
-        //def GIT_BRANCH = "GIT_BRANCH"
-        //def GIT_COMMIT = "GIT_COMMIT"
-    
-        println "${GIT_REPO}"
-        println "${GIT_BRANCH}"
-        println "${GIT_COMMIT}"
+        // println "GIT_REPO: ${GIT_REPO}"
+        // println "GIT_BRANCH: ${GIT_BRANCH}"
+        // println "GIT_COMMIT: ${GIT_COMMIT}"
     }
 }
 
