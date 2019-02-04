@@ -1,6 +1,21 @@
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurperClassic 
 
+@NonCPS
+def jobExecute(def command){
+    def sout = new StringBuilder(), serr = new StringBuilder()
+    //def cmd = "docker build --no-cache --tag ${tag} --build-arg GIT_COMMIT_ID="%GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%" --build-arg JENKINS_ID="%JOB_NAME% - %NODE_NAME% - %JENKINS_URL%" -f ${dockerfile} ."
+    //def proc = 'docker ps'.execute()
+    //def proc = "cmd /c echo ${name}".execute()
+    def proc = command.execute()
+    proc.consumeProcessOutput(sout, serr)
+    proc.waitForOrKill(1000)
+    //println "out>"
+    //println "$sout"
+    return "$sout"
+}
+
+
 // GLOBAL VARIABLE
 def containers = '''
             {
@@ -36,6 +51,7 @@ node {
           echo name
           echo dockerfile
           
+          
           bat """
           @echo off
           echo ${tag}
@@ -57,5 +73,15 @@ node {
           """
           */
         }
+        
+        println "======================"
+        
+        set GIT_REPO = jobExecute("git config --get remote.origin.url")
+        set GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
+        set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
+        
+        println "GIT_REPO: ${GIT_REPO}"
+        println "GIT_BRANCH: ${GIT_BRANCH}"
+        println "GIT_COMMIT: ${GIT_COMMIT}"
    }
 }
