@@ -10,8 +10,8 @@ def jobExecute(def command){
     def proc = command.execute()
     proc.consumeProcessOutput(sout, serr)
     proc.waitForOrKill(1000)
-    //println "out>"
-    //println "$sout"
+    println "sout> $sout"
+    println "serr> $serr"    
     return "$sout"
 }
 
@@ -122,6 +122,15 @@ node {
           println "dockerfile: " + dockerfile
           println "----------------------"
           
+          // // STOPS AT FIRST ITERATION
+          // // bat """
+          // // @echo off
+          // // echo "bat echo tag ${name}"
+          // // echo "bat echo tag ${tag}"
+          // // echo "bat echo tag ${dockerfile}"
+          // // """
+          
+          
           def retval = jobExecute("cmd /c echo ${name}")
           println "retval: ${retval}"
           retval = jobExecute("cmd /c echo ${tag}")
@@ -150,12 +159,15 @@ node {
         // """
         
         // def GIT_REPO = jobExecute("git config --get remote.origin.url")
+        def GIT_REPO = jobExecute(cmd /c "git config --get remote.origin.url")
         // def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
         // def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
     
-        // println "GIT_REPO: ${GIT_REPO}"
+        println "GIT_REPO: ${GIT_REPO}"
         // println "GIT_BRANCH: ${GIT_BRANCH}"
         // println "GIT_COMMIT: ${GIT_COMMIT}"
+        
+
     }
 }
 
