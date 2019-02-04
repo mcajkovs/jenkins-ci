@@ -43,19 +43,20 @@ node {
           echo resultJson.containers[i].name
           echo resultJson.containers[i].dockerfile
           
-          def tag = resultJson.containers[i].tag
-          def name = resultJson.containers[i].name
-          def dockerfile = resultJson.containers[i].dockerfile
+
+          // java.io.NotSerializableException
+          // def tag = resultJson.containers[i].tag
+          // def name = resultJson.containers[i].name
+          // def dockerfile = resultJson.containers[i].dockerfile
           
-          println "tag: ${tag}"
-          println "name: ${name}"
-          println "dockerfile: ${dockerfile}"
+          // println "tag: ${tag}"
+          // println "name: ${name}"
+          // println "dockerfile: ${dockerfile}"
           
-          
-          bat """
-          @echo off
-          echo ${tag}
-          """
+          // bat """
+          // @echo off
+          // echo ${tag}
+          // """
           
           /*
           bat """
