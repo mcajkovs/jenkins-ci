@@ -76,14 +76,17 @@ node {
         
         println "======================"
         
-        set GIT_REPO
-        GIT_REPO = jobExecute("git config --get remote.origin.url")
-        set GIT_BRANCH
-        GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
+        // set GIT_REPO
+        // GIT_REPO = jobExecute("git config --get remote.origin.url")
+        // set GIT_BRANCH
+        // GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
         //set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
         
-        println "GIT_REPO: ${GIT_REPO}"
-        println "GIT_BRANCH: ${GIT_BRANCH}"
+        // println "GIT_REPO: ${GIT_REPO}"
+        // println "GIT_BRANCH: ${GIT_BRANCH}"
         //println "GIT_COMMIT: ${GIT_COMMIT}"
+        
+        set blabla = jobExecute("cmd /c echo %PATH%")
+        println "${blabla}"
    }
 }
