@@ -124,9 +124,9 @@ node {
           
           def retval = jobExecute("cmd /c echo ${name}")
           println "retval: ${retval}"
-          def retval = jobExecute("cmd /c echo ${tag}")
+          retval = jobExecute("cmd /c echo ${tag}")
           println "retval: ${retval}"
-          def retval = jobExecute("cmd /c echo ${dockerfile}")
+          retval = jobExecute("cmd /c echo ${dockerfile}")
           println "retval: ${retval}"          
           println "----------------------"
           
