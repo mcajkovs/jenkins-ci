@@ -36,43 +36,43 @@ node {
         // PARSE JSON
         
         
-        def jsonSlurperClassic = new JsonSlurperClassic()
-        def resultJson = jsonSlurperClassic.parseText(containers)
-        for (i = 0; i < resultJson.containers.size(); i++){
-          echo resultJson.containers[i].tag
-          echo resultJson.containers[i].name
-          echo resultJson.containers[i].dockerfile
+        // def jsonSlurperClassic = new JsonSlurperClassic()
+        // def resultJson = jsonSlurperClassic.parseText(containers)
+        // for (i = 0; i < resultJson.containers.size(); i++){
+          // echo resultJson.containers[i].tag
+          // echo resultJson.containers[i].name
+          // echo resultJson.containers[i].dockerfile
           
-          def tag = resultJson.containers[i].tag
-          def name = resultJson.containers[i].name
-          def dockerfile = resultJson.containers[i].dockerfile
+          // def tag = resultJson.containers[i].tag
+          // def name = resultJson.containers[i].name
+          // def dockerfile = resultJson.containers[i].dockerfile
           
-          echo tag
-          echo name
-          echo dockerfile
+          // echo tag
+          // echo name
+          // echo dockerfile
           
           
-          bat """
-          @echo off
-          echo ${tag}
-          """
+          // bat """
+          // @echo off
+          // echo ${tag}
+          // """
           
-          /*
-          bat """
-          @echo off
-          REM for /f %%i in ('git config --get remote.origin.url') do set GIT_REPO=%%i
-          REM for /f %%i in ('git rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%i
-          REM for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%h - %%cd - %%cn" --date=format:"%%Y/%%m/%%d %%H:%%M:%%S"') do set GIT_COMMIT=%%i
-          @echo on
-          echo %GIT_REPO%
-          echo %GIT_BRANCH%
-          echo %GIT_COMMIT%
-          echo ${tag}
-          echo ${name}
-          echo ${dockerfile}          
-          """
-          */
-        }
+          // /*
+          // bat """
+          // @echo off
+          // REM for /f %%i in ('git config --get remote.origin.url') do set GIT_REPO=%%i
+          // REM for /f %%i in ('git rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%i
+          // REM for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%h - %%cd - %%cn" --date=format:"%%Y/%%m/%%d %%H:%%M:%%S"') do set GIT_COMMIT=%%i
+          // @echo on
+          // echo %GIT_REPO%
+          // echo %GIT_BRANCH%
+          // echo %GIT_COMMIT%
+          // echo ${tag}
+          // echo ${name}
+          // echo ${dockerfile}          
+          // """
+          // */
+        // }
         
         println "======================"
         
