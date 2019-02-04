@@ -78,10 +78,10 @@ node {
         
         set GIT_REPO = jobExecute("git config --get remote.origin.url")
         set GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
-        set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
+        //set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
         
         println "GIT_REPO: ${GIT_REPO}"
         println "GIT_BRANCH: ${GIT_BRANCH}"
-        println "GIT_COMMIT: ${GIT_COMMIT}"
+        //println "GIT_COMMIT: ${GIT_COMMIT}"
    }
 }
