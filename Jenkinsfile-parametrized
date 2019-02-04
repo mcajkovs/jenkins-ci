@@ -159,7 +159,7 @@ node {
         // """
         
         // def GIT_REPO = jobExecute("git config --get remote.origin.url")
-        def GIT_REPO = jobExecute("cmd /c git config --get remote.origin.url") // EMPTY RESULT
+        //def GIT_REPO = jobExecute("cmd /c git config --get remote.origin.url") // EMPTY RESULT
         def GIT_REPO = jobExecute("cmd /c git config --list") // EMPTY RESULT
         // def GIT_REPO = jobExecute('cmd /c git config --get remote.origin.url')
         // def GIT_REPO = jobExecute('cmd /c "git config --get remote.origin.url"')
