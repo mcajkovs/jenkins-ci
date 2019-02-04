@@ -142,13 +142,13 @@ node {
         // echo "bat echo str1 ${str1}"
         // """
         
-        //set GIT_REPO = jobExecute("git config --get remote.origin.url")
-        //set GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
-        //set GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
+        def GIT_REPO = jobExecute("git config --get remote.origin.url")
+        def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
+        def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
     
-        def GIT_REPO = "GIT_REPO"
-        def GIT_BRANCH = "GIT_BRANCH"
-        def GIT_COMMIT = "GIT_COMMIT"
+        //def GIT_REPO = "GIT_REPO"
+        //def GIT_BRANCH = "GIT_BRANCH"
+        //def GIT_COMMIT = "GIT_COMMIT"
     
         println "${GIT_REPO}"
         println "${GIT_BRANCH}"
