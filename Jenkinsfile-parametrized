@@ -51,6 +51,10 @@ def jsonParseSlurperClassic(def json) {
 
 
 node {
+    stage('Preparation') {
+      git branch: 'origin/master', url: 'https://github.com/mcajkovs/jenkins-ci.git'
+    }
+
     stage('Build') {
         //def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
         println "########################"
