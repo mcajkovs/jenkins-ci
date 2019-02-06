@@ -88,8 +88,8 @@ node {
         println "GIT_REPO5: ${GIT_REPO5}"
         //println "GIT_BRANCH: ${GIT_BRANCH}"
         //println "GIT_COMMIT: ${GIT_COMMIT}"
-        println "GIT_CONFIG: {GIT_CONFIG}"
-        println "EXEC_PWD: {EXEC_PWD}"
+        println "GIT_CONFIG: ${GIT_CONFIG}"
+        println "EXEC_PWD: ${EXEC_PWD}"
         
         
         
