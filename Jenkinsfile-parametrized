@@ -52,7 +52,7 @@ def jsonParseSlurperClassic(def json) {
 
 node {
     stage('Preparation') {
-      git branch: 'origin/master', url: 'https://github.com/mcajkovs/jenkins-ci.git'
+      git branch: 'master', url: 'https://github.com/mcajkovs/jenkins-ci.git'
     }
 
     stage('Build') {
