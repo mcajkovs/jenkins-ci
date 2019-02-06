@@ -23,10 +23,6 @@ def jsonParseSlurperClassic(def json) {
     println "======================"
     
     for (i = 0; i < resultJson.containers.size(); i++){
-        println "resultJson.containers[i].name: " + resultJson.containers[i].name
-        println "resultJson.containers[i].tag: " + resultJson.containers[i].tag
-        println "resultJson.containers[i].dockerfile: " + resultJson.containers[i].dockerfile
-        println "----------------------"
         def name = resultJson.containers[i].name
         def tag = resultJson.containers[i].tag
         def dockerfile = resultJson.containers[i].dockerfile
@@ -95,11 +91,12 @@ def jsonParseSlurperClassic(def json) {
 
 node {
     stage('Build') {
-        def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
+        //def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
+        println("WORKSPACE: " + WORKSPACE)
         println "======================"
-        //def jsonSlurperClassic = new JsonSlurperClassic()
-        //def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
-        // for (i = 0; i < resultJson.containers.size(); i++){
+        def jsonSlurperClassic = new JsonSlurperClassic()
+        def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
+         for (i = 0; i < resultJson.containers.size(); i++){
           // println "resultJson.containers[i].name: " + resultJson.containers[i].name
           // println "resultJson.containers[i].tag: " + resultJson.containers[i].tag
           // println "resultJson.containers[i].dockerfile: " + resultJson.containers[i].dockerfile
@@ -109,14 +106,14 @@ node {
           // // def tag = resultJson.containers[i].tag.toString()
           // // def dockerfile = resultJson.containers[i].dockerfile.toString()
           
-          // def name = resultJson.containers[i].name
-          // def tag = resultJson.containers[i].tag
-          // def dockerfile = resultJson.containers[i].dockerfile
+          def name = resultJson.containers[i].name
+          def tag = resultJson.containers[i].tag
+          def dockerfile = resultJson.containers[i].dockerfile
           
-          // println "name: " + name
-          // println "tag: " + tag
-          // println "dockerfile: " + dockerfile
-          // println "----------------------"
+          println "name: " + name
+          println "tag: " + tag
+          println "dockerfile: " + dockerfile
+          println "----------------------"
           
           // // // STOPS AT FIRST ITERATION
           // // // bat """
@@ -147,14 +144,14 @@ node {
           // // // echo "bat echo tag ${tag}"
           // // // echo "bat echo tag ${dockerfile}"
           // // // """
-        // }
+        }
         
         // def str1 = "str1"
         // bat """
         // echo "bat echo str1 ${str1}"
         // """
         
-        println("WORKSPACE: " + WORKSPACE)
+        
         
         
         // def GIT_REPO = jobExecute("git config --get remote.origin.url")
