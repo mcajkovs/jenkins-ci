@@ -10,9 +10,18 @@ def jobExecute(def command){
     def proc = command.execute()
     proc.consumeProcessOutput(sout, serr)
     proc.waitForOrKill(1000)
-    println "sout> $sout"
-    println "serr> $serr"    
+    //println "sout> $sout"
+    //println "serr> $serr"    
     return "$sout"
+    
+    // def sout = new StringBuilder(), serr = new StringBuilder()
+    // //def args = ['cmd', '/c', 'dir']
+    // def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
+    // def proc = new ProcessBuilder( args )
+    // Process process = proc.start()
+    // process.consumeProcessOutput( sout, serr )
+    // process.waitForOrKill( 2000 )
+    // println sout
 }
 
 @NonCPS
@@ -21,155 +30,88 @@ def jsonParseSlurperClassic(def json) {
     def resultJson = jsonSlurperClassic.parseText(json)
     println "resultJson.containers.size(): " + resultJson.containers.size().toString()
     println "======================"
-    
+
     for (i = 0; i < resultJson.containers.size(); i++){
         def name = resultJson.containers[i].name
         def tag = resultJson.containers[i].tag
         def dockerfile = resultJson.containers[i].dockerfile
+        println "name.getClass(): " + name.getClass()
+        println "tag.getClass(): " + tag.getClass()
+        println "dockerfile.getClass(): " + dockerfile.getClass()
+        // name.toString()
+        // tag.toString()
+        // dockerfile.toString()
         println "name: " + name
         println "tag: " + tag
         println "dockerfile: " + dockerfile
-        println "----------------------"
-        
-        
-        
-        // STOPS AT FIRST ITERATION
-        // bat """
-        // @echo off
-        // echo "bat echo tag ${name}"
-        // echo "bat echo tag ${tag}"
-        // echo "bat echo tag ${dockerfile}"
-        // """
-        
-        // def sout = new StringBuilder(), serr = new StringBuilder()
-        // def cmd = "docker build --no-cache --tag ${tag} --build-arg GIT_COMMIT_ID="%GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%" --build-arg JENKINS_ID="%JOB_NAME% - %NODE_NAME% - %JENKINS_URL%" -f ${dockerfile} ."
-        // //def proc = 'docker ps'.execute()
-        // def proc = "cmd /c echo ${name}".execute()
-        // proc.consumeProcessOutput(sout, serr)
-        // proc.waitForOrKill(1000)
-        // //println "out>"
-        // println "$sout"
-        // //println "-----------------------"
-        // //println "err>"
-        // //println "$serr"    
-        // //println "-----------------------"
-        
-        
-        //def retval = jobExecute("cmd /c echo ${name}")
-        //println "retval: ${retval}"
-
-        
-        
-        
-        
-        //def retval;
-        //retval = jobExecute("cmd /c echo ${name}")
-        //println "retval: ${retval}"
-        
-        
-        // def sout = new StringBuilder(), serr = new StringBuilder()
-        // //def args = ['cmd', '/c', 'dir']
-        // def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
-        // def proc = new ProcessBuilder( args )
-        // Process process = proc.start()
-        // process.consumeProcessOutput( sout, serr )
-        // process.waitForOrKill( 2000 )
-        // println sout
-                
-        println "======================"
-        
-        //docker build --no-cache --tag fixer.azurecr.io/fx-proxy    --build-arg GIT_COMMIT_ID="%GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%" --build-arg JENKINS_ID="%JOB_NAME% - %NODE_NAME% - %JENKINS_URL%" -f Dockerfile-proxy .
-        
+        println "----------------------"   
     }
-    
-    def str1 = "str1"
-    bat """
-    echo "bat echo str1 ${str1}"
-    """
+    println "======================"
 }
 
 
 node {
     stage('Build') {
-        //def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
+        def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
+        println "########################"
         println("WORKSPACE: " + WORKSPACE)
-        println "======================"
-        def jsonSlurperClassic = new JsonSlurperClassic()
-        def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
-         for (i = 0; i < resultJson.containers.size(); i++){
-          // println "resultJson.containers[i].name: " + resultJson.containers[i].name
-          // println "resultJson.containers[i].tag: " + resultJson.containers[i].tag
-          // println "resultJson.containers[i].dockerfile: " + resultJson.containers[i].dockerfile
-          // println "----------------------"
-          
-          // // def name = resultJson.containers[i].name.toString()
-          // // def tag = resultJson.containers[i].tag.toString()
-          // // def dockerfile = resultJson.containers[i].dockerfile.toString()
-          
-          def name = resultJson.containers[i].name
-          def tag = resultJson.containers[i].tag
-          def dockerfile = resultJson.containers[i].dockerfile
-          
-          println "name: " + name
-          println "tag: " + tag
-          println "dockerfile: " + dockerfile
-          println "----------------------"
-          
-          // // // STOPS AT FIRST ITERATION
-          // // // bat """
-          // // // @echo off
-          // // // echo "bat echo tag ${name}"
-          // // // echo "bat echo tag ${tag}"
-          // // // echo "bat echo tag ${dockerfile}"
-          // // // """
-          
-          
-          // def retval = jobExecute("cmd /c echo ${name}")
-          // println "retval: ${retval}"
-          // retval = jobExecute("cmd /c echo ${tag}")
-          // println "retval: ${retval}"
-          // retval = jobExecute("cmd /c echo ${dockerfile}")
-          // println "retval: ${retval}"          
-          // println "----------------------"
-          
-          // // println "name.getClass(): " + name.getClass()
-          // // println "tag.getClass(): " + tag.getClass()
-          // // println "dockerfile.getClass(): " + dockerfile.getClass()          
-          
-          // println "======================"
-          
-          // // // bat """
-          // // // @echo off
-          // // // echo "bat echo tag ${name}"
-          // // // echo "bat echo tag ${tag}"
-          // // // echo "bat echo tag ${dockerfile}"
-          // // // """
-        }
+        println "########################"
         
-        // def str1 = "str1"
-        // bat """
-        // echo "bat echo str1 ${str1}"
-        // """
+        // bat '''
+          // @echo off
+          // setlocal enableextensions
+          // for /f %%i in ('git config --get remote.origin.url') do set GIT_REPO=%%i
+          // for /f %%i in ('git rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%i
+          // for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%h - %%cd - %%cn" --date=format:"%%Y/%%m/%%d %%H:%%M:%%S"') do set GIT_COMMIT=%%i
+          // @echo on
+          // echo "BAT_GIT: %GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%"
+          // echo "BAT_PWD: echo %cd%"
+        // '''
+        // println "########################"
+        // def GIT_REPO1 = jobExecute("git config --get remote.origin.url")
+        // def GIT_REPO2 = jobExecute('cmd /c git config --get remote.origin.url')
+        // def GIT_REPO3 = jobExecute('cmd /c "git config --get remote.origin.url"')
+        // def GIT_REPO4 = jobExecute("cmd /c \"git config --get remote.origin.url\"")
+        // def GIT_REPO5 = jobExecute("cmd /c git config --get remote.origin.url") // EMPTY RESULT
+        // //def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
+        // //def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
+        // def GIT_CONFIG = jobExecute("cmd /c git config --list") // WORKS - git command was found
+        // def EXEC_PWD = jobExecute("cmd /c echo %cd%") // C:\Program Files (x86)\Jenkins
+        // println "GIT_REPO1: ${GIT_REPO1}"
+        // println "GIT_REPO2: ${GIT_REPO2}"
+        // println "GIT_REPO3: ${GIT_REPO3}"
+        // println "GIT_REPO4: ${GIT_REPO4}"
+        // println "GIT_REPO5: ${GIT_REPO5}"
+        // //println "GIT_BRANCH: ${GIT_BRANCH}"
+        // //println "GIT_COMMIT: ${GIT_COMMIT}"
+        // println "GIT_CONFIG: {GIT_CONFIG}"
+        // println "EXEC_PWD: {EXEC_PWD}"
         
         
         
-        
-        // def GIT_REPO = jobExecute("git config --get remote.origin.url")
-        //def GIT_REPO = jobExecute("cmd /c git config --get remote.origin.url") // EMPTY RESULT
-        // def GIT_REPO = jobExecute("cmd /c git config --list") // WORKS
-        //def GIT_REPO = jobExecute("cmd /c echo %cd%") // C:\Program Files (x86)\Jenkins
-        // def GIT_REPO = jobExecute('cmd /c git config --get remote.origin.url')
-        // def GIT_REPO = jobExecute('cmd /c "git config --get remote.origin.url"')
-        // def GIT_REPO = jobExecute("cmd /c \"git config --get remote.origin.url\"")
-        
-        // def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
-        // def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
-    
-        //println "GIT_REPO: ${GIT_REPO}"
-        // println "GIT_BRANCH: ${GIT_BRANCH}"
-        // println "GIT_COMMIT: ${GIT_COMMIT}"
-        
+        // def jsonSlurperClassic = new JsonSlurperClassic()
+        // def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
+        // println "resultJson.containers.size(): " + resultJson.containers.size().toString()
+         // for (i = 0; i < resultJson.containers.size(); i++){
 
+          // def name = resultJson.containers[i].name
+          // def tag = resultJson.containers[i].tag
+          // def dockerfile = resultJson.containers[i].dockerfile
+          
+          // println "name: " + name
+          // println "tag: " + tag
+          // println "dockerfile: " + dockerfile
+          // println "----------------------"
+          
+          // // STOPS AT FIRST ITERATION
+          // // bat """
+          // // @echo off
+          // // echo "bat echo tag ${name}"
+          // // echo "bat echo tag ${tag}"
+          // // echo "bat echo tag ${dockerfile}"
+          // // """
+        // }
+        println "########################"
     }
 }
 
