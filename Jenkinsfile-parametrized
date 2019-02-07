@@ -1,5 +1,15 @@
 //import groovy.json.JsonSlurper
 import groovy.json.JsonSlurperClassic 
+// https://jenkins_url/scriptApproval/
+// method groovy.json.JsonSlurperClassic parseText java.lang.String
+// method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object
+// new groovy.json.JsonSlurperClassic
+// new java.lang.ProcessBuilder java.util.List
+// new java.lang.StringBuilder
+// staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String
+// staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
+// staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods consumeProcessOutput java.lang.Process java.lang.Appendable java.lang.Appendable
+// staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods waitForOrKill java.lang.Process long
 
 @NonCPS
 def jobExecute(def command){
