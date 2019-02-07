@@ -17,17 +17,17 @@ def jobExecute(def command){
 
 @NonCPS
 def jobExecutePB(def command){
-    println "list size: " + command.size()
-    // def sout = new StringBuilder(), serr = new StringBuilder()
-    // //def args = ['cmd', '/c', 'dir']
-    // //def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
-    // def proc = new ProcessBuilder(args)
-    // Process process = proc.start()
-    // process.consumeProcessOutput(sout, serr)
-    // process.waitForOrKill(2000)
-    // println "sout> $sout"
-    // println "serr> $serr"
-    // return "$sout"
+    //println "list size: " + command.size()
+    def sout = new StringBuilder(), serr = new StringBuilder()
+    //def args = ['cmd', '/c', 'dir']
+    //def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
+    def proc = new ProcessBuilder(command)
+    Process process = proc.start()
+    process.consumeProcessOutput(sout, serr)
+    process.waitForOrKill(2000)
+    println "sout> $sout"
+    println "serr> $serr"
+    return "$sout"
 }
 
 @NonCPS
@@ -94,8 +94,8 @@ node {
         println "EXEC_GIT_REPO4: ${EXEC_GIT_REPO4}"
         println "EXEC_GIT_REPO5: ${EXEC_GIT_REPO5}"
         println "EXEC_GIT_CONFIG: ${GIT_CONFIG}"
-
-        def myList1 = ["Apple", "Banana", "Orange"]
+        println "########################"
+        def myList1 = ["git", "config", "--list"]
         jobExecutePB(myList1)
         
         
