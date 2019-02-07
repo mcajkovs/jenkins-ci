@@ -71,7 +71,7 @@ node {
           echo "BAT_GIT_COMMIT: %GIT_COMMIT%"
           echo "BAT_GIT_REPO: %GIT_REPO% - %GIT_BRANCH%"
           echo "BAT_GIT_BRANCH: %GIT_BRANCH%"
-          echo "BAT_PWD: echo %cd%"                         :: C:\Program Files (x86)\Jenkins\workspace\mcajkovs-parametrized-build-consumer
+          echo "BAT_PWD: echo %cd%"                         & :: C:\Program Files (x86)\Jenkins\workspace\mcajkovs-parametrized-build-consumer
         '''
         println "########################"
         def EXEC_GIT_REPO1 = jobExecute("git config --get remote.origin.url")            // EMPTY RESULT
