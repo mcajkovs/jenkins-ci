@@ -20,14 +20,21 @@ import groovy.json.JsonSlurperClassic
 // staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String
 
 @NonCPS
-def jobExecute(def command){
+def jobExecute(def workdir, def command){
     def sout = new StringBuilder(), serr = new StringBuilder()
     //def cmd = "docker build --no-cache --tag ${tag} --build-arg GIT_COMMIT_ID="%GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%" --build-arg JENKINS_ID="%JOB_NAME% - %NODE_NAME% - %JENKINS_URL%" -f ${dockerfile} ."
     //def proc = 'docker ps'.execute()
     //def proc = "cmd /c echo ${name}".execute()
     
-    // command.execute(null, new File("Working dir"))
-    def proc = command.execute()
+    if (workdir != null){
+        println "NON NULL workdir: " +  workdir
+        def proc = command.execute(null, new File(workdir))
+    }
+    else{
+        println "NULL workdir"
+        def proc = command.execute()
+    }
+
     proc.consumeProcessOutput(sout, serr)
     proc.waitForOrKill(1000)
     println "sout> $sout"
@@ -47,7 +54,7 @@ def jobExecutePB(def workdir = null, def command){
         proc.directory(new File(workdir));    
     }
     else{
-        println "NULL workdir: "
+        println "NULL workdir"
     }
     Process process = proc.start()
     process.consumeProcessOutput(sout, serr)
