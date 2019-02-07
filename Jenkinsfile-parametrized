@@ -3,6 +3,7 @@ import groovy.json.JsonSlurperClassic
 // https://jenkins_url/scriptApproval/
 // method groovy.json.JsonSlurperClassic parseText java.lang.String
 // method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object
+// method java.lang.ProcessBuilder start
 // new groovy.json.JsonSlurperClassic
 // new java.lang.ProcessBuilder java.util.List
 // new java.lang.StringBuilder
@@ -17,6 +18,8 @@ def jobExecute(def command){
     //def cmd = "docker build --no-cache --tag ${tag} --build-arg GIT_COMMIT_ID="%GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%" --build-arg JENKINS_ID="%JOB_NAME% - %NODE_NAME% - %JENKINS_URL%" -f ${dockerfile} ."
     //def proc = 'docker ps'.execute()
     //def proc = "cmd /c echo ${name}".execute()
+    
+    // command.execute(null, new File("Working dir"))
     def proc = command.execute()
     proc.consumeProcessOutput(sout, serr)
     proc.waitForOrKill(1000)
@@ -26,12 +29,13 @@ def jobExecute(def command){
 }
 
 @NonCPS
-def jobExecutePB(def command){
+def jobExecutePB(def workdir, def command){
     //println "list size: " + command.size()
     def sout = new StringBuilder(), serr = new StringBuilder()
     //def args = ['cmd', '/c', 'dir']
     //def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
     def proc = new ProcessBuilder(command)
+    proc.directory(new File(workdir));
     Process process = proc.start()
     process.consumeProcessOutput(sout, serr)
     process.waitForOrKill(2000)
@@ -68,6 +72,7 @@ def jsonParseSlurperClassic(def json) {
 
 node {
     stage('Preparation') {
+      // git plugin
       git branch: 'master', url: 'https://github.com/mcajkovs/jenkins-ci.git'
     }
 
@@ -106,8 +111,9 @@ node {
         println "EXEC_GIT_CONFIG: ${GIT_CONFIG}"
         println "########################"
         def myList1 = ["git", "config", "--list"]
-        jobExecutePB(myList1)
-        
+        jobExecutePB(WORKSPACE, myList1)
+        def myList2 = ["git", "log", "-1"]
+        jobExecutePB(WORKSPACE, myList2)
         
         // def jsonSlurperClassic = new JsonSlurperClassic()
         // def resultJson = jsonSlurperClassic.parseText(params.MY_PARAM1)
