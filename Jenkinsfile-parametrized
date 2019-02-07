@@ -1,16 +1,23 @@
 //import groovy.json.JsonSlurper
 import groovy.json.JsonSlurperClassic 
 // https://jenkins_url/scriptApproval/
+// Signatures already approved:
 // method groovy.json.JsonSlurperClassic parseText java.lang.String
 // method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object
 // method java.lang.ProcessBuilder start
 // new groovy.json.JsonSlurperClassic
+// new java.io.File java.lang.String
 // new java.lang.ProcessBuilder java.util.List
 // new java.lang.StringBuilder
 // staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String
 // staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
 // staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods consumeProcessOutput java.lang.Process java.lang.Appendable java.lang.Appendable
 // staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods waitForOrKill java.lang.Process long
+
+// Signatures already approved which may have introduced a security vulnerability (recommend clearing):
+// method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object
+// new java.io.File java.lang.String
+// staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String
 
 @NonCPS
 def jobExecute(def command){
@@ -29,13 +36,19 @@ def jobExecute(def command){
 }
 
 @NonCPS
-def jobExecutePB(def workdir, def command){
+def jobExecutePB(def workdir = null, def command){
     //println "list size: " + command.size()
     def sout = new StringBuilder(), serr = new StringBuilder()
     //def args = ['cmd', '/c', 'dir']
     //def args = ['cmd', '/c', 'C:\\Users\\AAithal\\Desktop\\MIR3\\bin\\inConsole', '-H', 'company.mir3.com', '-u', 'user', '-p', 'password', '-I', '-i', 'Server']
     def proc = new ProcessBuilder(command)
-    proc.directory(new File(workdir));
+    if (workdir != null){
+        println "NON NULL workdir: " +  workdir
+        proc.directory(new File(workdir));    
+    }
+    else{
+        println "NULL workdir: "
+    }
     Process process = proc.start()
     process.consumeProcessOutput(sout, serr)
     process.waitForOrKill(2000)
@@ -111,7 +124,7 @@ node {
         println "EXEC_GIT_CONFIG: ${GIT_CONFIG}"
         println "########################"
         def myList1 = ["git", "config", "--list"]
-        jobExecutePB(WORKSPACE, myList1)
+        jobExecutePB(myList1)
         def myList2 = ["git", "log", "-1"]
         jobExecutePB(WORKSPACE, myList2)
         
