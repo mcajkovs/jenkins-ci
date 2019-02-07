@@ -58,7 +58,7 @@ node {
     stage('Build') {
         //def userDataJson1 = jsonParseSlurperClassic(params.MY_PARAM1)
         println "########################"
-        println("WORKSPACE: " + WORKSPACE)
+        println("WORKSPACE: " + WORKSPACE)  // C:\Program Files (x86)\Jenkins\workspace\mcajkovs-parametrized-build-consumer
         println "########################"
         
         bat '''
@@ -68,27 +68,25 @@ node {
           for /f %%i in ('git rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%i
           for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%h - %%cd - %%cn" --date=format:"%%Y/%%m/%%d %%H:%%M:%%S"') do set GIT_COMMIT=%%i
           @echo on
-          echo "BAT_GIT: %GIT_COMMIT% - %GIT_REPO% - %GIT_BRANCH%"
-          echo "BAT_PWD: echo %cd%"
+          echo "BAT_GIT_COMMIT: %GIT_COMMIT%"
+          echo "BAT_GIT_REPO: %GIT_REPO% - %GIT_BRANCH%"
+          echo "BAT_GIT_BRANCH: %GIT_BRANCH%"
+          echo "BAT_PWD: echo %cd%"                         :: C:\Program Files (x86)\Jenkins\workspace\mcajkovs-parametrized-build-consumer
         '''
         println "########################"
-        def GIT_REPO1 = jobExecute("git config --get remote.origin.url")
-        def GIT_REPO2 = jobExecute('cmd /c git config --get remote.origin.url')
-        def GIT_REPO3 = jobExecute('cmd /c "git config --get remote.origin.url"')
-        def GIT_REPO4 = jobExecute("cmd /c \"git config --get remote.origin.url\"")
-        def GIT_REPO5 = jobExecute("cmd /c git config --get remote.origin.url") // EMPTY RESULT
-        //def GIT_BRANCH = jobExecute("git rev-parse --abbrev-ref HEAD")
-        //def GIT_COMMIT = jobExecute('git log -1 --pretty=format:"%h - %cd - %cn" --date=format:"%Y/%m/%d %H:%M:%S"')
-        def GIT_CONFIG = jobExecute("cmd /c git config --list") // WORKS - git command was found
-        def EXEC_PWD = jobExecute("cmd /c echo %cd%") // C:\Program Files (x86)\Jenkins
-        println "GIT_REPO1: ${GIT_REPO1}"
-        println "GIT_REPO2: ${GIT_REPO2}"
-        println "GIT_REPO3: ${GIT_REPO3}"
-        println "GIT_REPO4: ${GIT_REPO4}"
-        println "GIT_REPO5: ${GIT_REPO5}"
-        //println "GIT_BRANCH: ${GIT_BRANCH}"
-        //println "GIT_COMMIT: ${GIT_COMMIT}"
-        println "GIT_CONFIG: ${GIT_CONFIG}"
+        def EXEC_GIT_REPO1 = jobExecute("git config --get remote.origin.url")            // EMPTY RESULT
+        def EXEC_GIT_REPO2 = jobExecute('cmd /c git config --get remote.origin.url')     // EMPTY RESULT
+        def EXEC_GIT_REPO3 = jobExecute('cmd /c "git config --get remote.origin.url"')   // EMPTY RESULT
+        def EXEC_GIT_REPO4 = jobExecute("cmd /c \"git config --get remote.origin.url\"") // EMPTY RESULT
+        def EXEC_GIT_REPO5 = jobExecute("cmd /c git config --get remote.origin.url")     // EMPTY RESULT
+        def GIT_CONFIG = jobExecute("cmd /c git config --list")                          // WORKS - git command was found
+        def EXEC_PWD = jobExecute("cmd /c echo %cd%")                                    // C:\Program Files (x86)\Jenkins
+        println "EXEC_GIT_REPO1: ${EXEC_GIT_REPO1}"
+        println "EXEC_GIT_REPO2: ${EXEC_GIT_REPO2}"
+        println "EXEC_GIT_REPO3: ${EXEC_GIT_REPO3}"
+        println "EXEC_GIT_REPO4: ${EXEC_GIT_REPO4}"
+        println "EXEC_GIT_REPO5: ${EXEC_GIT_REPO5}"
+        println "EXEC_GIT_CONFIG: ${GIT_CONFIG}"
         println "EXEC_PWD: ${EXEC_PWD}"
         
         
